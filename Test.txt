@@ -1,0 +1,113 @@
+1st....
+==================================================================
+SELECT last_name "Employee", salary "Monthly Salary"
+FROM employees
+where salary between 5000 and 12000
+AND department_id in (20,50)
+/
+
+
+2nd
+===================================================================
+select last_name, hire_date
+from employees
+where last_name = 'Davies'
+/
+29-JAN-05
+
+select last_name, hire_date
+from employees
+where last_date> '29-JAN-05'
+/
+
+
+
+select last_name, hire_date
+from employees
+where hire_date > (select hire_date from employees
+where last_name = 'Davies')
+/
+
+
+3rd
+=================================================================
+SELECT e.last_name, e.department_id, e.job_id
+from employees e natural join department d 
+where d.location_id = 1700
+/
+
+4th
+=================================================================
+
+SELECT last_name
+FROM employees
+WHERE last_name like '%a%' AND
+last_name like '%e%'
+/
+
+
+
+
+lab-05-0
+====================================================================
+SELECT last_name || ' earns '|| to_char(salary, '$99,999.00')||
+' monthly but wants '|| to_char(salary*3,'$99,999.00')||
+'.' "Dream Salary"
+FROM employees
+/
+
+
+lab-05-02
+=====================================================================
+SELECT last_name, hire_date,
+to_char(next_day(add_months(hire_date,6),'Monday'),'fmDay, "the" Ddspth "of" Month, YYYY') reviwe
+from employees
+/
+
+lab-05-03
+======================================================================
+SELECT last_name, NVL(TO_CHAR(commission_pct),'no commission') AS comm
+from employees
+/
+
+
+LAB-05-04
+=======================================================================
+SELECT last_name, job_id, case job_id
+	WHEN 'AD_PRES' THEN 'A'
+	WHEN 'ST_MAN' THEN 'B'
+	WHEN 'IT_PROG'	THEN 'C'
+	WHEN 'SA_REP' THEN 'D'
+	WHEN 'ST_CLEARK' THEN 'E'
+	ELSE '0' END GRADE
+from employees
+ORDER BY GRADE
+/
+
+
+LAB-05-05
+===============================================================================
+SELECT last_name, job_id, case 
+	WHEN job_id='AD_PRES' THEN 'A'
+	WHEN job_id='ST_MAN' THEN 'B'
+	WHEN job_id='IT_PROG'	THEN 'C'
+	WHEN job_id='SA_REP' THEN 'D'
+	WHEN job_id='ST_CLEARK' THEN 'E'
+	ELSE '0' END GRADE
+from employees
+ORDER BY GRADE
+
+lab-05-06
+===============================================================================
+SELECT last_name, job_id, decode(job_id,
+	'AD_PRES' , 'A',
+	'ST_MAN' , 'B',
+	'IT_PROG','C',
+	'SA_REP','D',
+	'ST_CLEARK','E',
+	'0')GRADE
+from employees
+ORDER BY GRADE
+/
+/
+
